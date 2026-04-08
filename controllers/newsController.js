@@ -53,3 +53,13 @@ export const createNews = async (req, res) => {
     return handleError(res, StatusCodes.INTERNAL_SERVER_ERROR, error.message);
   }
 };
+// newsController.js
+export const getNewsById = async (req, res) => {
+  try {
+    const news = await News.findById(req.params.id).populate("author", "name email");
+    if (!news) return handleError(res, 404, "Inkuru ntiboneka");
+    handleSuccess(res, 200, "Inkuru iboneka", news);
+  } catch (error) {
+    handleError(res, 500, error.message);
+  }
+};

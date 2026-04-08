@@ -6,7 +6,8 @@ import newsRoutes from "./routes/newsRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import fileUpload from "express-fileupload";
 import messageRoutes from "./routes/messageRoutes.js";
-
+import contactRoutes from "./routes/contactRoutes.js";
+import adRoutes from "./routes/adRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -32,7 +33,8 @@ connectDB();
 app.use("/api/v1/news", newsRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/messages", messageRoutes);
-
+app.use("/api/v1/contact", contactRoutes);
+app.use("/api/v1/ads", adRoutes);
 app.get("/", (req, res) => {
   res.send("API is running 🔥");
 });
