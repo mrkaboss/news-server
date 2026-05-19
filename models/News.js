@@ -9,6 +9,12 @@ const newsSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true                           
+  },
+  copyrightStrike: {
+    isStriked: { type: Boolean, default: false },
+    originalAuthor: { type: String, default: "" },
+    compensationFee: { type: String, default: "" },
+    strikedAt: { type: Date }
   }
 }, { timestamps: true });
 

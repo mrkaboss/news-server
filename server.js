@@ -12,6 +12,10 @@ import contactRoutes from "./routes/contactRoutes.js";
 import adRoutes from "./routes/adRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 
+import adminRoutes from "./routes/adminRoutes.js"; 
+
+import fs from "fs";
+
 const app = express();
 
 app.use(cors());
@@ -26,14 +30,22 @@ app.use("/api/v1/messages", messageRoutes);
 app.use("/api/v1/contact", contactRoutes);
 app.use("/api/v1/ads", adRoutes);
 app.use("/api/v1/Category", categoryRoutes);
+app.use('/api/v1', adminRoutes);
 
 app.get("/", (req, res) => res.send("API is running 🔥"));
 
-
 const startServer = async () => {
-  await connectDB();
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`✅ Server running on port ${PORT} 🚀`));
+  try {
+    await connectDB();
+    if (!fs.existsSync("./uploads")) {
+      fs.mkdirSync("./uploads");
+      console.log("✅ Uploads folder created");
+    }
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`✅ Server running on port ${PORT} 🚀`));
+  } catch (error) {
+    console.error("❌ Failed to start the backend engine node:", error.message);
+  }
 };
 
 startServer();

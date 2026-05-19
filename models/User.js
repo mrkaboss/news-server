@@ -19,8 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["user", "admin"],
     default: "user"
-  }
-}, { timestamps: true });
+  },
+  isBanned: { type: Boolean, default: false },
+  banReason: { type: String, default: "" }
+}, { timestamps: true })
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 export default User;
